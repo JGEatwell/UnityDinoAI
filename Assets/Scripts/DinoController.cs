@@ -27,7 +27,7 @@ public class DinoController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        stateMachine = new DinoStateMachine(this, newIdleState());
+        stateMachine = new DinoStateMachine(this, new Idlestate());
     }
 
     // Update is called once per frame
@@ -43,6 +43,6 @@ public class DinoController : MonoBehaviour
         if (config == null)
             return;
         Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
-        Gizmos.DrawWireSphere(transform.position, config.senseRadius);
+        Gizmos.DrawWireSphere(transform.position, config.senseRange);
     }
 }

@@ -10,6 +10,8 @@ public class FoodSource : MonoBehaviour
     [SerializeField]
     private float maximumHungerRegen = 100f;
 
+    public bool HasFood => hungerRegenAvailable > 0f;
+
     private void Update()
     {
         if (regenRatePerSecond > 0f && hungerRegenAvailable < maximumHungerRegen)

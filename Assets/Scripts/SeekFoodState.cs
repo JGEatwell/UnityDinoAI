@@ -20,7 +20,7 @@ public class SeekFoodState : IDinoState
             return new Idlestate();
 
         if (controller.Movement.HasArrived)
-            return new EatState();
+            return new EatState(target);
 
         return this;
     }
