@@ -28,6 +28,11 @@ public class DinoConfig : ScriptableObject
     public float thirstThreshhold = 40f;
     public float tiredThreshhold = 30f;
 
+    [Header("Satiation")]
+    public float hungerSatiation = 80f;
+    public float thirstSatiation = 80f;
+    public float sleepSatiation = 80f;
+
     [Header("Senses")]
     public float senseRange = 25f;
 

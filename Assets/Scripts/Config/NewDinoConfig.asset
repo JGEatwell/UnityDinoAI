@@ -18,11 +18,14 @@ MonoBehaviour:
   runSpeed: 5
   rotationSpeed: 120
   hungerDecay: 0.5
-  thirstDecay: 0.7
-  tiredDecay: 0.3
-  hungerThreshhold: 40
+  thirstDecay: 0.5
+  tiredDecay: 0.5
+  hungerThreshhold: 20
   thirstThreshhold: 40
   tiredThreshhold: 30
+  hungerSatiation: 80
+  thirstSatiation: 80
+  sleepSatiation: 80
   senseRange: 25
   maxhealth: 100
   starveDPS: 1

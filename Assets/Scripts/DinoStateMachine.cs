@@ -18,7 +18,6 @@ public class DinoStateMachine
 
         if (nextState != null & nextState != CurrentState)
         {
-            //Debug.Log($"Transition: {CurrentState.GetType().Name} -> {nextState.GetType().Name}");
             CurrentState.Exit(controller);
             CurrentState = nextState;
             CurrentState.Enter(controller);

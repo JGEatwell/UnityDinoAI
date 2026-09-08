@@ -15,7 +15,7 @@ public class SleepState : IDinoState
     {
         controller.Stats.Rest(RestRatePerSecond * Time.deltaTime);
 
-        if (!controller.Stats.IsTired)
+        if (controller.Stats.Tiredness >= controller.Config.sleepSatiation)
             return new Idlestate();
 
         return this;

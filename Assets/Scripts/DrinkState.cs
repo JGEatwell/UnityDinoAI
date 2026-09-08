@@ -21,7 +21,7 @@ public class DrinkState : IDinoState
     {
         controller.Stats.Drink(DrinkRatePerSecond * Time.deltaTime);
 
-        if (!controller.Stats.IsThirsty)
+        if (controller.Stats.Thirst >= controller.Config.thirstSatiation)
             return new Idlestate();
 
         return this;

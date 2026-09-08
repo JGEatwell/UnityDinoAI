@@ -26,7 +26,7 @@ public class EatState : IDinoState
         float foodConsumed = food.Consume(ConsumptionRatePerSecond * Time.deltaTime);
         controller.Stats.Eat(foodConsumed);
 
-        if (!controller.Stats.IsHungry)
+        if (controller.Stats.Hunger >= controller.Config.hungerSatiation)
             return new Idlestate();
 
         return this;
