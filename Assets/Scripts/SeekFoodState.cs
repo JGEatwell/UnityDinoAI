@@ -8,6 +8,7 @@ public class SeekFoodState : IDinoState
     public void Enter(DinoController controller)
     {
         target = FindNearestFood(controller);
+        //Debug.Log($"[{controller.GetEntityId()}] SeekFoodState.Enter - target found: {target != null}");
         if (target != null)
             controller.Movement.MoveTo(target.transform.position);
     }
@@ -16,6 +17,8 @@ public class SeekFoodState : IDinoState
 
     public IDinoState Tick(DinoController controller)
     {
+        Debug.Log($"SeekFoodState.Tick - target null: {target == null}, HasFood: {(target != null ? target.HasFood.ToString() : "N/A")}");
+
         if (target == null || !target.HasFood)
             return new Idlestate();
 

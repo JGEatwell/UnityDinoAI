@@ -40,7 +40,7 @@ public class DinoStats : MonoBehaviour
 
         Hunger = Mathf.Max(0f, Hunger - config.hungerDecay * Time.deltaTime);
         Thirst = Mathf.Max(0f, Thirst - config.thirstDecay * Time. deltaTime);
-        Tiredness = Mathf.Max(0f, Tiredness - config.tiredThreshhold * Time.deltaTime);
+        Tiredness = Mathf.Max(0f, Tiredness - config.tiredDecay * Time.deltaTime);
 
         if (Hunger <= 0 || Thirst <= 0f)
             ApplyDamage(config.starveDPS * Time.deltaTime);
