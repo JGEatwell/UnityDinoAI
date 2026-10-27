@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class DinoController : MonoBehaviour
     public DinoStats Stats { get; private set;}
     public DinoMovement Movement { get; private set;}
     public Animator Animator { get; private set;}
+    public string CurrentStateName => stateMachine?.CurrentState?.GetType().Name ?? "None";
 
     private DinoStateMachine stateMachine;
 
