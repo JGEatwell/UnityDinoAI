@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/34101839/README.md)
 # DinoPark
 
 A free-roaming dinosaur island built in **Unity 6 (HDRP)**, focused on believable, needs-driven creature AI.
