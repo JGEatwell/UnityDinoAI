@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewDinoConfig", menuName = "Dinosaurs/Dinosaur Config")]
@@ -13,6 +14,10 @@ public class DinoConfig : ScriptableObject
     public string dinoTypeName = "Stegosaurus";
     public DieteryType diet = DieteryType.Herbivore;
 
+    [Header("Variance")]
+    public Vector2 startingRange = new Vector2(60f, 100f);
+    [Range(0f, 0.5f)] public float decayVariance = 0.2f;
+
     [Header("Move Speed")]
     public float walkSpeed = 2f;
     public float runSpeed = 5f;
@@ -20,7 +25,7 @@ public class DinoConfig : ScriptableObject
 
     [Header("Decay Rate")]
     public float hungerDecay = 0.5f;
-    public float thirstDecay = 0.7f;
+    public float thirstDecay = 0.7f; //was 0.7f
     public float tiredDecay = 0.3f;
 
     [Header("Thresholds")]
@@ -39,4 +44,8 @@ public class DinoConfig : ScriptableObject
     [Header("Health")]
     public float maxhealth = 100f;
     public float starveDPS = 1f;
+
+    [Header("herd")]
+    public float herdRadius = 35f;
+    public float herdComfort = 12f;
 }

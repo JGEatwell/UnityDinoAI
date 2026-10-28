@@ -4,6 +4,10 @@ using UnityEngine;
 public class SeekWaterState : IDinoState
 {
     private WaterSource target;
+    private float nextScanTime;
+    
+    private const float ScanInterval = 1f;
+    private const float SearchRadius = 40f;
 
     public void Enter(DinoController controller)
     {
@@ -14,12 +18,29 @@ public class SeekWaterState : IDinoState
 
     public void Exit(DinoController controller) {}
 
-    public IDinoState Tick(DinoController controller)
+    public IDinoState Tick(DinoController  c)
     {
-        if (target == null)
+        if (!c.Stats.IsThirsty)
             return new Idlestate();
 
-        if (controller.Movement.HasArrived)
+        if (target == null && Time.time >= nextScanTime)
+        {
+            target = FindNearestWater(c);
+            nextScanTime = Time.time + ScanInterval;
+
+            if (target != null)
+                c.Movement.MoveTo(target.transform.position);
+        }
+
+        if (target == null)
+        {
+            if (c.Movement.HasArrived && c.Movement.TryGetRandomPoint(c.transform.position, SearchRadius, out Vector3 p))
+                c.Movement.MoveTo(p);
+
+            return this;
+        }
+
+        if (c.Movement.HasArrived)
             return new DrinkState(target);
 
         return this;

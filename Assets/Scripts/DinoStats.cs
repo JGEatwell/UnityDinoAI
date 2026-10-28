@@ -1,12 +1,15 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(DinoController))]
 public class DinoStats : MonoBehaviour
 {
     [SerializeField]
     private DinoConfig config;
+    private float hungerRate;
+    private float thirstRate;
+    private float tiredRate;
 /*-----------------------------------------------------------------------*/
     public float Health { get; private set;}
     public float Hunger { get; private set;}
@@ -20,31 +23,35 @@ public class DinoStats : MonoBehaviour
 
    public event Action OnDeath;
 
-    private void Awake()
+    public void Initialize(DinoConfig cfg)
     {
-        if (config == null)
-            config = GetComponent<DinoController>()?.Config;
-
+        config = cfg;
         Health = config.maxhealth;
-        Hunger = 100f;
-        Thirst = 100f;
-        Tiredness = 100f;
+
+        Hunger = Random.Range(config.startingRange.x, config.startingRange.y);
+        Thirst = Random.Range(config.startingRange.x, config.startingRange.y);
+        Tiredness = Random.Range(config.startingRange.x, config.startingRange.y);
+
+        hungerRate = config.hungerDecay * Vary();
+        thirstRate = config.thirstDecay * Vary();
+        tiredRate = config.tiredDecay * Vary();
+        Debug.Log($"{name} init: hunger rate {hungerRate}");
     }
-
-
+   
     // Update is called once per frame
     private void Update()
     {
         if (IsDead)
             return;
 
-        Hunger = Mathf.Max(0f, Hunger - config.hungerDecay * Time.deltaTime);
-        Thirst = Mathf.Max(0f, Thirst - config.thirstDecay * Time. deltaTime);
-        Tiredness = Mathf.Max(0f, Tiredness - config.tiredDecay * Time.deltaTime);
+        Hunger = Mathf.Max(0f, Hunger - hungerRate * Time.deltaTime);
+        Thirst = Mathf.Max(0f, Thirst - thirstRate * Time. deltaTime);
+        Tiredness = Mathf.Max(0f, Tiredness - tiredRate * Time.deltaTime);
 
         if (Hunger <= 0 || Thirst <= 0f)
             ApplyDamage(config.starveDPS * Time.deltaTime);
     }
+
 
     public void Eat(float amount) => Hunger = Mathf.Min(100f, Hunger + amount);
     public void Drink(float amount) => Thirst = Mathf.Min(100, Thirst + amount);
@@ -57,4 +64,7 @@ public class DinoStats : MonoBehaviour
             OnDeath?.Invoke();
 
     }
+
+    private float Vary() => 1f + Random.Range(-config.decayVariance, config.decayVariance);
+    
 }

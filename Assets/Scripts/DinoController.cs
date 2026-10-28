@@ -1,6 +1,5 @@
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(DinoStats))]
 [RequireComponent(typeof(DinoMovement))]
@@ -10,6 +9,7 @@ public class DinoController : MonoBehaviour
     [SerializeField]
     private DinoConfig config;
 
+    public static readonly List<DinoController> All = new List<DinoController>();
     public DinoConfig Config => config;
     public DinoStats Stats { get; private set;}
     public DinoMovement Movement { get; private set;}
@@ -18,12 +18,16 @@ public class DinoController : MonoBehaviour
 
     private DinoStateMachine stateMachine;
 
+    private void OnEnable() => All.Add(this);
+    private void OnDisable() => All.Remove(this);
+
     private void Awake()
     {
         Stats = GetComponent<DinoStats>();
         Movement = GetComponent<DinoMovement>();
         Animator = GetComponent<Animator>();
 
+        Stats.Initialize(config);
         Movement.Initialize(config);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,11 +44,37 @@ public class DinoController : MonoBehaviour
         stateMachine.Tick();
     }
 
-    private void GizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (config == null)
             return;
-        Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
+
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, config.senseRange);
+    }
+
+    public bool TryGetHerdCentre(out Vector3 centre)
+    {
+        centre = Vector3.zero;
+        int count = 0;
+        float r2 = config.herdRadius * config.herdRadius;
+
+        foreach (var other in All)
+        {
+            if (other == this || other.config != config)
+                continue;
+
+            if ((other.transform.position - transform.position).sqrMagnitude > r2)
+                continue;
+
+            centre += other.transform.position;
+            count++;
+        }
+
+        if (count == 0)
+            return false;
+
+        centre /= count;
+        return true;
     }
 }

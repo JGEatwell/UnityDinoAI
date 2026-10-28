@@ -86,7 +86,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: -Infinity
   lockSun:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   enableBackplate:
     m_OverrideState: 0
