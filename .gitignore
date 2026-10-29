@@ -115,3 +115,6 @@ InitTestScene*.unity*
 /[Aa]ssets/textures*
 
 /[Aa]ssets/_Recovery*
+
+# Unity Terrain Sample Asset Pack (~1.6 GB) - re-import from the Asset Store
+/[Aa]ssets/[Tt]errain*[Ss]ample*

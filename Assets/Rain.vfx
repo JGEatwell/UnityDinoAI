@@ -40,7 +40,7 @@ MonoBehaviour:
     x: 629
     y: -1433
     width: 697
-    height: 2352
+    height: 2377
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1269,7 +1269,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 14
+      m_SerializableObject: 6
     m_Space: -1
   m_Property:
     name: MinSpeed
@@ -1303,7 +1303,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 18
+      m_SerializableObject: 10
     m_Space: -1
   m_Property:
     name: MaxSpeed
